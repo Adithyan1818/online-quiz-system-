@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="stats">
+    <div class="stat"><strong>{{ total_users }}</strong><span>Users</span></div>
+    <div class="stat"><strong>{{ total_quizzes }}</strong><span>Quizzes</span></div>
+    <div class="stat"><strong>{{ total_questions }}</strong><span>Questions</span></div>
+    <div class="stat"><strong>{{ total_results }}</strong><span>Results</span></div>
+</div>
+
+<div class="actions">
+    <a class="btn" href="{{ url_for('admin_quizzes') }}">Manage Quizzes</a>
+    <a class="btn" href="{{ url_for('manage_users') }}">Manage Users</a>
+    <a class="btn" href="{{ url_for('admin_results') }}">View Results</a>
+</div>
+{% endblock %}

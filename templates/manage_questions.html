@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Manage Questions{% endblock %}
+{% block content %}
+<h1>Questions: {{ quiz.title }}</h1>
+
+<div class="form-card">
+    <h2>Add Question</h2>
+    <form method="POST" action="{{ url_for('add_question', quiz_id=quiz.id) }}">
+        <label>Question</label>
+        <textarea name="question_text" required></textarea>
+
+        <label>Option A</label>
+        <input name="option_a" required>
+
+        <label>Option B</label>
+        <input name="option_b" required>
+
+        <label>Option C</label>
+        <input name="option_c" required>
+
+        <label>Option D</label>
+        <input name="option_d" required>
+
+        <label>Correct option</label>
+        <select name="correct_option" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+
+        <label>Marks</label>
+        <input type="number" name="marks" value="1" min="1" required>
+
+        <button class="btn" type="submit">Add Question</button>
+    </form>
+</div>
+
+{% for q in questions %}
+<div class="card">
+    <h3>{{ loop.index }}. {{ q.question_text }}</h3>
+    <p>A. {{ q.option_a }}</p>
+    <p>B. {{ q.option_b }}</p>
+    <p>C. {{ q.option_c }}</p>
+    <p>D. {{ q.option_d }}</p>
+    <p><strong>Correct:</strong> {{ q.correct_option }} | <strong>Marks:</strong> {{ q.marks }}</p>
+
+    <form method="POST" action="{{ url_for('delete_question', question_id=q.id) }}"
+          onsubmit="return confirm('Delete this question?')">
+        <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+        <button class="btn danger" type="submit">Delete Question</button>
+    </form>
+</div>
+{% else %}
+<p>No questions added yet.</p>
+{% endfor %}
+{% endblock %}

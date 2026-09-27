@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}All Results{% endblock %}
+{% block content %}
+<h1>All Quiz Results</h1>
+<table>
+    <thead>
+        <tr>
+            <th>User</th><th>Email</th><th>Quiz</th>
+            <th>Score</th><th>Percentage</th><th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in results %}
+        <tr>
+            <td>{{ r.user_name }}</td>
+            <td>{{ r.email }}</td>
+            <td>{{ r.quiz_title }}</td>
+            <td>{{ r.score }} / {{ r.total_marks }}</td>
+            <td>{{ r.percentage }}%</td>
+            <td>{{ r.attempted_at }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="6">No results yet.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

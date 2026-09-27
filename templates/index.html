@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Home - Online Quiz System{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Online Quiz System</h1>
+    <p>Test your knowledge with online quizzes and view your results instantly.</p>
+    <div class="actions">
+        {% if session.get('user_id') %}
+            <a class="btn" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+        {% else %}
+            <a class="btn" href="{{ url_for('register') }}">Get Started</a>
+            <a class="btn secondary" href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

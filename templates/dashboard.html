@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Welcome, {{ session.get('name') }}</h1>
+<p>Select an available quiz below.</p>
+
+<div class="quiz-grid">
+{% for quiz in quizzes %}
+    <div class="card">
+        <h2>{{ quiz.title }}</h2>
+        <p>{{ quiz.description or "No description available." }}</p>
+        <p><strong>Category:</strong> {{ quiz.category_name or "General" }}</p>
+        <p><strong>Questions:</strong> {{ quiz.question_count }}</p>
+        <p><strong>Time:</strong> {{ quiz.time_limit }} minutes</p>
+        <a class="btn" href="{{ url_for('quiz', quiz_id=quiz.id) }}">Start Quiz</a>
+    </div>
+{% else %}
+    <div class="card">
+        <h2>No quizzes available</h2>
+        <p>An administrator has not published a quiz yet.</p>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

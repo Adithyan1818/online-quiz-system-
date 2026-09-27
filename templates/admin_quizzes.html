@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Manage Quizzes{% endblock %}
+{% block content %}
+<h1>Manage Quizzes</h1>
+
+<div class="form-card">
+    <h2>Create Quiz</h2>
+    <form method="POST" action="{{ url_for('create_quiz') }}">
+        <label>Title</label>
+        <input name="title" required>
+
+        <label>Description</label>
+        <textarea name="description"></textarea>
+
+        <label>Category</label>
+        <select name="category_id" required>
+            <option value="">Select category</option>
+            {% for c in categories %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Time limit (minutes)</label>
+        <input type="number" name="time_limit" value="10" min="1" required>
+
+        <label>Status</label>
+        <select name="status">
+            <option value="disabled">Disabled</option>
+            <option value="published">Published</option>
+        </select>
+
+        <button class="btn" type="submit">Create Quiz</button>
+    </form>
+</div>
+
+{% for q in quizzes %}
+<div class="card">
+    <h2>{{ q.title }}</h2>
+    <p>{{ q.description }}</p>
+    <p>Category: {{ q.category_name }} | Questions: {{ q.question_count }} | Status: {{ q.status }}</p>
+
+    <a class="btn" href="{{ url_for('manage_questions', quiz_id=q.id) }}">Questions</a>
+
+    <form class="inline" method="POST" action="{{ url_for('toggle_quiz', quiz_id=q.id) }}">
+        <button class="btn secondary" type="submit">
+            {% if q.status == 'published' %}Disable{% else %}Publish{% endif %}
+        </button>
+    </form>
+
+    <form class="inline" method="POST"
+          action="{{ url_for('delete_quiz', quiz_id=q.id) }}"
+          onsubmit="return confirm('Delete this quiz?')">
+        <button class="btn danger" type="submit">Delete</button>
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

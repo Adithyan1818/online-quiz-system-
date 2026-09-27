@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}My Results{% endblock %}
+{% block content %}
+<h1>Previous Results</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Quiz</th>
+            <th>Score</th>
+            <th>Percentage</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in results %}
+        <tr>
+            <td>{{ r.quiz_title }}</td>
+            <td>{{ r.score }} / {{ r.total_marks }}</td>
+            <td>{{ r.percentage }}%</td>
+            <td>{{ r.attempted_at }}</td>
+            <td><a href="{{ url_for('result', result_id=r.id) }}">View</a></td>
+        </tr>
+    {% else %}
+        <tr><td colspan="5">No previous results.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h1>My Profile</h1>
+    <form method="POST">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ user.name }}" required>
+
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" disabled>
+
+        <label>Role</label>
+        <input type="text" value="{{ user.role }}" disabled>
+
+        <button class="btn" type="submit">Update Name</button>
+    </form>
+</div>
+{% endblock %}
